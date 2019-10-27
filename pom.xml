@@ -51,6 +51,12 @@
 		    <groupId>org.apache.commons</groupId>
 		    <artifactId>commons-lang3</artifactId>
 		</dependency>
+		<!-- This is added to force STS4 to run tests using JUnit4 test runner. Haven't found a workaround -->
+		<dependency>
+		    <groupId>org.junit.vintage</groupId>
+		    <artifactId>junit-vintage-engine</artifactId>
+		    <scope>test</scope>
+		</dependency>
 	</dependencies>
 
 	<build>

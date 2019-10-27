@@ -78,6 +78,56 @@ public class Photo {
 				+ rover + "]";
 	}
 
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((camera == null) ? 0 : camera.hashCode());
+		result = prime * result
+				+ ((earthDate == null) ? 0 : earthDate.hashCode());
+		result = prime * result + (int) (id ^ (id >>> 32));
+		result = prime * result + ((imgSrc == null) ? 0 : imgSrc.hashCode());
+		result = prime * result + ((rover == null) ? 0 : rover.hashCode());
+		result = prime * result + (int) (sol ^ (sol >>> 32));
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Photo other = (Photo) obj;
+		if (camera == null) {
+			if (other.camera != null)
+				return false;
+		} else if (!camera.equals(other.camera))
+			return false;
+		if (earthDate == null) {
+			if (other.earthDate != null)
+				return false;
+		} else if (!earthDate.equals(other.earthDate))
+			return false;
+		if (id != other.id)
+			return false;
+		if (imgSrc == null) {
+			if (other.imgSrc != null)
+				return false;
+		} else if (!imgSrc.equals(other.imgSrc))
+			return false;
+		if (rover == null) {
+			if (other.rover != null)
+				return false;
+		} else if (!rover.equals(other.rover))
+			return false;
+		if (sol != other.sol)
+			return false;
+		return true;
+	}
+
 	/**
 	 * Replace http protocol with https. Download image over http will fail.
 	 * 

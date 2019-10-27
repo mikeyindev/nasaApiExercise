@@ -17,24 +17,26 @@ import com.mike.nasa.util.Utils;
 @RequestMapping("/api")
 public class NasaController {
 	@Autowired
-	private PhotoService photoService;
-
-	@Autowired
 	private DateService dateService;
 
-	private Set<String> dates;
+	@Autowired
+	private DownloadService downloadService;
+
+	@Autowired
+	private PhotoService photoService;
+
+	private static final String FILE_PATH = System.getProperty("user.home")
+			+ "/Downloads/imageDates.txt";
+
+	Set<String> dates;
 
 	/**
 	 * Both download and display photos
 	 */
 	@GetMapping("/photo")
 	public void downloadAndDisplayRandomPhoto() {
-		dates = dateService.readDateFile();
-		for (String date : dates) {
-			Photo photo = photoService.getRandomPhoto(date);
-			DownloadService.download(photo);
-			Utils.displayInBrowser(photo);
-		}
+		dates = dateService.readDateFile(FILE_PATH);
+		processRequest(dates, true, true);
 	}
 
 	/**
@@ -42,11 +44,8 @@ public class NasaController {
 	 */
 	@GetMapping("/photo/download")
 	public void downloadRandomPhoto() {
-		dates = dateService.readDateFile();
-		for (String date : dates) {
-			Photo photo = photoService.getRandomPhoto(date);
-			DownloadService.download(photo);
-		}
+		dates = dateService.readDateFile(FILE_PATH);
+		processRequest(dates, true, false);
 	}
 
 	/**
@@ -56,10 +55,18 @@ public class NasaController {
 	 */
 	@GetMapping("/photo/display")
 	public void displayRandomPhoto() {
-		dates = dateService.readDateFile();
+		dates = dateService.readDateFile(FILE_PATH);
+		processRequest(dates, false, true);
+	}
+
+	private void processRequest(Set<String> dates, boolean download,
+			boolean display) {
 		for (String date : dates) {
 			Photo photo = photoService.getRandomPhoto(date);
-			Utils.displayInBrowser(photo);
+			if (download)
+				downloadService.downloadPhoto(photo);
+			if (display)
+				Utils.displayInBrowser(photo);
 		}
 	}
 }

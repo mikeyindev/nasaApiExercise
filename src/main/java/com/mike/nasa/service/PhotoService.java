@@ -94,8 +94,7 @@ public class PhotoService {
 						PhotoList.class);
 				LOGGER.debug("PhotoList :: {}", photoList);
 			} catch (Exception e) {
-				LOGGER.debug("Exception :: {}", e.getMessage());
-				e.printStackTrace();
+				LOGGER.debug("Exception :: {}", e);
 			}
 		}
 		return photoList;

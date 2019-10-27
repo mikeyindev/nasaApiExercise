@@ -25,14 +25,12 @@ public class DateService {
 			"MMM d, yyyy", "MMM-dd-yyyy" };
 	private static final Logger LOGGER = LoggerFactory
 			.getLogger(DateService.class);
-	private static final String FILE_PATH = System.getProperty("user.home")
-			+ "/Downloads/imageDates.txt";
 	// Using set to avoid downloading/displaying duplicate photos
 	private Set<String> dates = new HashSet<>();
 
-	public Set<String> readDateFile() {
+	public Set<String> readDateFile(String filePath) {
 
-		try (Stream<String> stream = Files.lines(Paths.get(FILE_PATH))) {
+		try (Stream<String> stream = Files.lines(Paths.get(filePath))) {
 			dates = stream.collect(Collectors.toSet());
 		} catch (IOException e) {
 			LOGGER.debug("Error reading date file :: {}", e);
@@ -51,6 +49,7 @@ public class DateService {
 		} catch (ParseException e) {
 			LOGGER.debug("Error parsing date " + dateStr
 					+ ". Input date may be invalid :: {}", e);
+			throw new IllegalArgumentException();
 		}
 		return formattedDate;
 	}

@@ -4,6 +4,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
+import javax.imageio.IIOException;
 import javax.imageio.ImageIO;
 
 import org.slf4j.Logger;
@@ -19,8 +20,9 @@ public class DownloadService {
 	private static final String DOWNLOAD_FOLDER = System
 			.getProperty("user.home") + "/Downloads/";
 
-	public static void download(Photo photo) {
-		if (photo != null) {
+	public void downloadPhoto(Photo photo) {
+		if (photo != null && photo.getImgSrc() != null
+				&& photo.getImgSrc().getFile() != null) {
 			String temp = photo.getImgSrc().getFile();
 			// Get image name from last segment in URL
 			String fileName = temp.substring(temp.lastIndexOf("/") + 1);
@@ -43,9 +45,12 @@ public class DownloadService {
 //								.openStream();
 //				Files.copy(in, Paths.get(filePath),
 //						StandardCopyOption.REPLACE_EXISTING);
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+			} catch (IIOException e) {
+				LOGGER.debug(e.getMessage());
+				throw new IllegalArgumentException();
+			} catch (IOException e1) {
+				LOGGER.debug(e1.getMessage());
+				throw new IllegalArgumentException();
 			}
 		}
 	}
