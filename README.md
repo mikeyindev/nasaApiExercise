@@ -13,15 +13,15 @@ The application downloads photos taken by Opportunity's panoramic camera (PANCAM
 2. Run the commands `java -jar nasa/target/nasa-0.0.1-SNAPSHOT.jar`
 3. Go to `http://localhost:8090/photo`
 
-> Make sure to save an `imageDates.txt` file in the `/Downloads` folder with a list of dates before starting the application.
->
-> All dates should be in the following formats:
-> * 02/27/17
-> * June 2, 2018
-> * Jul-13-2016
-> * April 31, 2018
-> 
-> With each date listed on a new line.
+Make sure to save an `imageDates.txt` file in the `/Downloads` folder with a list of dates before starting the application.
+
+All dates should be in the following formats:
+* __02/27/17__
+* __June 2, 2018__
+* __Jul-13-2016__
+* __April 31, 2018__
+ 
+With each date listed on a new line.
 
 The application runs on port __8090__ with logging level set to `DEBUG`.
 
@@ -37,6 +37,8 @@ The application runs on port __8090__ with logging level set to `DEBUG`.
 
 ## Limitations
 
-The application has only been tested on Macs and not on Windows or Linux, so it might not show the photos in the browser correctly on those operating systems. This is because I don't have a Windows machine handy.
+* The application has only been tested on Macs and not on Windows or Linux, so it might not show the photos in the browser correctly on those operating systems. This is because I don't have a Windows machine handy.
 
-If there're no photos for a particular date, then the application returns status 404 with an error message. There may be more graceful ways of handling exceptions.
+* If there're no photos for a particular date, then the application returns status 404 with an error message. There may be more graceful ways of handling exceptions.
+
+* A frontend client is ostensibly missing and the tests are incomplete, mostly due to time constraints :p
