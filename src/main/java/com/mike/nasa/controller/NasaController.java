@@ -2,6 +2,8 @@ package com.mike.nasa.controller;
 
 import java.util.Set;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,6 +26,9 @@ public class NasaController {
 
 	@Autowired
 	private PhotoService photoService;
+
+	private static final Logger LOGGER = LoggerFactory
+			.getLogger(NasaController.class);
 
 	private static final String FILE_PATH = System.getProperty("user.home")
 			+ "/Downloads/imageDates.txt";
@@ -62,7 +67,9 @@ public class NasaController {
 	private void processRequest(Set<String> dates, boolean download,
 			boolean display) {
 		for (String date : dates) {
+			LOGGER.debug("Processing request for photo taken on {}", date);
 			Photo photo = photoService.getRandomPhoto(date);
+			LOGGER.debug("Random photo selected :: {}", photo);
 			if (download)
 				downloadService.downloadPhoto(photo);
 			if (display)

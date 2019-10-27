@@ -99,4 +99,12 @@ public class PhotoService {
 		}
 		return photoList;
 	}
+
+	public PhotoList getPhotoList() {
+		return photoList;
+	}
+
+	public void setPhotoList(PhotoList photoList) {
+		this.photoList = photoList;
+	}
 }
